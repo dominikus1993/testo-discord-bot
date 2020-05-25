@@ -1,5 +1,7 @@
-import Discord from "discord.js"
+import Discord from "discord.js";
+import {google} from 'googleapis';
 
+const yt = google.youtube({ version: "v3", auth: process.env.GOOGLE_API_KEY})
 const client = new Discord.Client();
 
 client.on("ready", () => {
