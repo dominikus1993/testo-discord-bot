@@ -19,6 +19,11 @@ client.on('message', msg => {
     else if (msg.content == "testo jak jest w polsce?"){
         msg.reply("https://tenor.com/view/wpolscejakwlesie-polskalas-testo-testoviron-wpolsce-jak-wchlewie-gif-12676252")
     }
+    else if(msg.content == "Testo daj rolexy") {
+      yt.search.list({ part: "snippet", type: "video", q: "Testoviron rolexy", maxResults: 50, order: "date"}).then(res => {
+          msg.reply(res.data.items)
+      })
+    }
   });
 console.log(process.env.DISCORD_TOKEN)
 client.login(process.env.DISCORD_TOKEN)
