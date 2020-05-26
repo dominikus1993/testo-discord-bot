@@ -20,8 +20,10 @@ client.on('message', msg => {
         msg.reply("https://tenor.com/view/wpolscejakwlesie-polskalas-testo-testoviron-wpolsce-jak-wchlewie-gif-12676252")
     }
     else if(msg.content == "Testo daj rolexy") {
-      yt.search.list({ part: "snippet", type: "video", q: "Testoviron rolexy", maxResults: 50, order: "date"}).then(res => {
-          msg.reply(res.data.items)
+      yt.search.list({ part: "snippet", type: "video", q: "Testoviron rolexy", maxResults: 3, order: "date"}).then(res => {
+          for (const item of res.data.items?.filter(x => x.id?.kind == "youtube#video") ?? []) {
+            msg.reply(`Poczęstuj się https://www.youtube.com/watch?v=${item.id?.videoId}`)
+          }
       })
     }
   });
