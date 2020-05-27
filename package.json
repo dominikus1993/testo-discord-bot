@@ -19,6 +19,7 @@
   "homepage": "https://github.com/dominikus1993/testo-discord-bot#readme",
   "dependencies": {
     "discord.js": "^12.2.0",
+    "fp-ts": "^2.6.2",
     "googleapis": "^51.0.0",
     "typescript": "^3.9.2"
   },
