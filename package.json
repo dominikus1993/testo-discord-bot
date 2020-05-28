@@ -5,7 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "tsc": "tsc",
-    "start": "ts-node ./src/index.ts"
+    "ts-node": "ts-node",
+    "start": "npm run build:live",
+    "build": "tsc -p .",
+    "build:live": "nodemon --watch 'src/**/*.ts' --exec ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -21,6 +24,7 @@
     "discord.js": "^12.2.0",
     "fp-ts": "^2.6.2",
     "googleapis": "^51.0.0",
+    "nodemon": "^2.0.4",
     "typescript": "^3.9.2"
   },
   "devDependencies": {

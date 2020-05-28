@@ -4,12 +4,13 @@ import { getCommands, getCommand } from "./commands/comamnd";
 import { Option, map, isSome } from 'fp-ts/lib/Option'
 
 const yt = google.youtube({ version: "v3", auth: process.env.GOOGLE_API_KEY})
+
 const client = new Discord.Client();
 
 client.on("ready", () => {
     console.log("Elo")
 })
-const commands = getCommands();
+const commands = getCommands({ yt: yt });
 const command = getCommand(commands);
 client.on('message', msg => {
     const cmd = command(msg);

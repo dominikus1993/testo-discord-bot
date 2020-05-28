@@ -1,16 +1,26 @@
 import Discord from "discord.js";
 import { Option, some, none, fromNullable } from 'fp-ts/lib/Option'
 import { pingCmd } from './ping'
+import {google, youtube_v3} from 'googleapis';
+import { getSearchYoutubeCommand } from "./searchYoutube";
+
 type CommandName = string;
+
+export interface IDependencies {
+    readonly yt: youtube_v3.Youtube
+}
+
 export interface ICommand {
     readonly name: CommandName,
     readonly description: string,
     execute: (msg: Discord.Message, ...args: any[]) => void
 };
 
-export function getCommands(): Discord.Collection<CommandName, ICommand> {
+export function getCommands(ioc: IDependencies): Discord.Collection<CommandName, ICommand> {
     const col = new Discord.Collection<CommandName, ICommand>()
     col.set(pingCmd.name, pingCmd)
+    const searchVideo = getSearchYoutubeCommand(ioc.yt)();
+    col.set(searchVideo.name, searchVideo)
     return col;
 }
 
