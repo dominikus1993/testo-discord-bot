@@ -3,6 +3,7 @@ import { Option, some, none, fromNullable } from 'fp-ts/lib/Option'
 import { pingCmd } from './ping'
 import {google, youtube_v3} from 'googleapis';
 import { getSearchYoutubeCommand } from "./searchYoutube";
+import { getRandomYoutubeCommand } from "./randomVideo";
 
 type CommandName = string;
 
@@ -21,6 +22,8 @@ export function getCommands(ioc: IDependencies): Discord.Collection<CommandName,
     col.set(pingCmd.name, pingCmd)
     const searchVideo = getSearchYoutubeCommand(ioc.yt)();
     col.set(searchVideo.name, searchVideo)
+    const randomVideo = getRandomYoutubeCommand(ioc.yt)();
+    col.set(randomVideo.name, randomVideo)
     return col;
 }
 
