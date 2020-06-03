@@ -28,6 +28,7 @@
     "googleapis": "^51.0.0",
     "jest": "^26.0.1",
     "nodemon": "^2.0.4",
+    "rxjs": "^6.5.5",
     "ts-jest": "^26.0.0",
     "typescript": "^3.9.2",
     "winston": "^3.2.1"
