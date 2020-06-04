@@ -16,11 +16,14 @@ const commands = getCommands({ yt: yt });
 const command = getCommand(commands);
 
 fromEvent(client, "message")
-  .pipe(omap((m: Discord.Message) => ({ msg: m, cmd: command(m) })), filter(({ cmd }) => isSome(cmd)), omap(x => ({ ...x, cmd: x.cmd as Some<ICommand> })))
-  .subscribe(({ cmd, msg }) => {
-    const c = cmd.value
-    c.execute(msg)
-  });
+  .pipe(omap((m: Discord.Message) => ({ msg: m, cmd: command(m) })),
+    filter(({ cmd }) => isSome(cmd)),
+    omap(x => ({ ...x, cmd: x.cmd as Some<ICommand> })),
+    flatMap(({ cmd, msg }) => {
+      const c = cmd.value
+      return c.execute(msg);
+    }))
+  .subscribe(console.log);
 
 client.login(process.env.DISCORD_TOKEN)
 
