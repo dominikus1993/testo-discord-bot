@@ -10,19 +10,17 @@ const yt = google.youtube({ version: "v3", auth: process.env.GOOGLE_API_KEY })
 const client = new Discord.Client();
 
 client.on("ready", () => {
-  console.log("Elo")
+  console.log("Start")
 })
 const commands = getCommands({ yt: yt });
 const command = getCommand(commands);
 
 fromEvent(client, "message")
-  .pipe(omap((m: Discord.Message) => ({ msg: m, cmd: command(m) })))
-  .pipe(filter(({ cmd }) => isSome(cmd)))
-  .subscribe(({cmd, msg}) => {
-    const c = (cmd as Some<ICommand>).value;
+  .pipe(omap((m: Discord.Message) => ({ msg: m, cmd: command(m) })), filter(({ cmd }) => isSome(cmd)), omap(x => ({ ...x, cmd: x.cmd as Some<ICommand> })))
+  .subscribe(({ cmd, msg }) => {
+    const c = cmd.value
     c.execute(msg)
   });
 
-console.log(process.env.DISCORD_TOKEN)
 client.login(process.env.DISCORD_TOKEN)
 

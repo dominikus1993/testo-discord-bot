@@ -14,7 +14,7 @@ export interface IDependencies {
 export interface ICommand {
     readonly name: CommandName,
     readonly description: string,
-    execute: (msg: Discord.Message, ...args: any[]) => void
+    execute: (msg: Discord.Message, ...args: any[]) => Promise<Discord.Message>
 };
 
 export function getCommands(ioc: IDependencies): Discord.Collection<CommandName, ICommand> {
