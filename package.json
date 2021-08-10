@@ -22,19 +22,19 @@
   },
   "homepage": "https://github.com/dominikus1993/testo-discord-bot#readme",
   "dependencies": {
-    "@types/jest": "^25.2.3",
-    "discord.js": "^12.2.0",
+    "@types/jest": "^26.0.24",
+    "discord.js": "^13.0.1",
     "fp-ts": "^2.6.4",
-    "googleapis": "^51.0.0",
-    "jest": "^26.0.1",
+    "googleapis": "^84.0.0",
+    "jest": "^27.0.1",
     "nodemon": "^2.0.4",
-    "rxjs": "^6.5.5",
-    "ts-jest": "^26.1.0",
-    "typescript": "^3.9.5",
+    "rxjs": "^7.3.0",
+    "ts-jest": "^27.0.4",
+    "typescript": "^4.3.5",
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@types/node": "^14.0.12",
-    "ts-node": "^8.10.2"
+    "@types/node": "^16.4.13",
+    "ts-node": "^10.2.0"
   }
 }

@@ -1,7 +1,7 @@
 import Discord from "discord.js";
-import { Option, some, none, fromNullable } from 'fp-ts/lib/Option'
+import { Option, none, fromNullable } from 'fp-ts/lib/Option'
 import { pingCmd } from './ping'
-import {google, youtube_v3} from 'googleapis';
+import {youtube_v3} from 'googleapis';
 import { getSearchYoutubeCommand } from "./searchYoutube";
 import { getRandomYoutubeCommand } from "./randomVideo";
 
