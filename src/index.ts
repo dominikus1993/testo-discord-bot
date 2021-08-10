@@ -1,24 +1,29 @@
 import Discord from "discord.js";
 import { google } from 'googleapis';
-import { getCommands, getCommand } from "./commands/comamnd";
-import { Option, map, isSome } from 'fp-ts/lib/Option'
+import { getCommands, getCommand, ICommand } from "./commands/comamnd";
+import { Option, Some, map, isSome } from 'fp-ts/lib/Option'
+import { fromEvent } from "rxjs";
+import { filter, map as omap, flatMap } from 'rxjs/operators';
 
 const yt = google.youtube({ version: "v3", auth: process.env.GOOGLE_API_KEY })
 
 const client = new Discord.Client();
 
 client.on("ready", () => {
-  console.log("Elo")
+  console.log("Start")
 })
 const commands = getCommands({ yt: yt });
 const command = getCommand(commands);
-client.on('message', msg => {
-  const cmd = command(msg);
-  if (isSome(cmd)) {
-    const c = cmd.value;
-    c.execute(msg);
-  }
-});
-console.log(process.env.DISCORD_TOKEN)
+
+fromEvent(client, "message")
+  .pipe(omap((m: Discord.Message) => ({ msg: m, cmd: command(m) })),
+    filter(({ cmd }) => isSome(cmd)),
+    omap(x => ({ ...x, cmd: x.cmd as Some<ICommand> })),
+    flatMap(({ cmd, msg }) => {
+      const c = cmd.value
+      return c.execute(msg);
+    }))
+  .subscribe(console.log);
+
 client.login(process.env.DISCORD_TOKEN)
 
